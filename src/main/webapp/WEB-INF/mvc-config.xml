@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Uncomment and your base-package here:-->
+         <context:component-scan
+            base-package="com.yswsoft.base_web.*"/>  
+
+
+    <mvc:annotation-driven />
+    
+	<!-- <import resource="classpath:/spring/applicationContext.xml"/>  -->
+	<import resource="classpath:/spring/applicationContext-db.xml"/> 
+	<!-- spring talk 
+	<import resource="classpath:/spring/applicationContext-talk.xml"/> -->
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	        <!-- Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp' -->
+	        <property name="prefix" value="/WEB-INF/view/"/>
+	        <property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- be -->
+	
+	<bean id="exampleJob2" class="com.yswsoft.base_web.build.core.auto.ExampleJob2">
+	</bean>  
+	
+	<bean id="exampleJob2Detail"  
+	    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <!-- 指定任务类 -->  
+	    <property name="targetObject" ref="exampleJob2" />  
+	    <!-- 指定任务执行的方法 -->  
+	    <property name="targetMethod" value="execute" />  
+	</bean>  
+	
+	<bean id="exampleJob2Trigger"  
+	    class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+	    <property name="jobDetail" ref="exampleJob2Detail" />  
+	    <!-- 每10秒运行一次 -->  
+	    <property name="cronExpression" value="0/10 * * * * ?" />  
+	</bean>  
+  
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	    <property name="triggers">  
+	        <list>  
+	            <!-- <ref bean="exampleJobTrigger" /> -->  
+	            <ref bean="exampleJob2Trigger" />  
+	        </list>  
+	    </property>  
+	</bean>  
+	<!-- end -->
+
+
+</beans>
+

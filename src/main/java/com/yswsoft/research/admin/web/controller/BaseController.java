@@ -29,7 +29,12 @@ public class BaseController extends  DispatcherServlet{
 	public HttpSession session;
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest req,HttpServletResponse rep){
+	public String loginGet(HttpServletRequest req,HttpServletResponse rep){
+		return "signin";
+	}
+	
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public ModelAndView loginPost(HttpServletRequest req,HttpServletResponse rep){
 		ModelAndView model = new ModelAndView();
 		String uName=req.getParameter("username");
 		String uPwd=req.getParameter("userpwd");

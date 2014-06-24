@@ -28,9 +28,9 @@ public class RandomUtil {
       public static String getLonLat(){
 	      StringBuilder sb = new StringBuilder();
 	      sb.append("\"coordinates\":[");
-	      sb.append(getLongitude());
+	      sb.append(getLongitude(0,0));
 	      sb.append(",");
-	      sb.append(getLatitude());
+	      sb.append(getLatitude(0,0));
 	      sb.append("]");
 	     // System.out.println(sb.toString());
 	      return sb.toString();       
@@ -44,10 +44,15 @@ public class RandomUtil {
        * 随机获得经度
        * @return
        */
-      public static double getLongitude(){
-    	  Random rand = new Random();
-    	  double lon=rand.nextInt(7333)+6172;
-    	  //System.out.println(lon/100);
+      public static double getLongitude(int beginLon,int endLon){
+    	  if(beginLon==0){
+    		  beginLon=7333;
+    	  }
+    	  if(endLon==0){
+    		  endLon=13505;
+    	  }
+    	  double lon=Math.random()*(endLon-beginLon)+beginLon;
+    	  System.out.println("lon="+lon/100);
     	  return lon/100;
       }
       
@@ -56,10 +61,15 @@ public class RandomUtil {
        * 随机获得纬度
        * @return
        */
-      public static double getLatitude(){
-    	  Random rand = new Random();
-    	  double lat=rand.nextInt(351)+4982;
-    	  //System.out.println(lat/100);
+      public static double getLatitude(int beginLat,int endLat){
+    	  if(beginLat==0){
+    		  beginLat=351;
+    	  }
+    	  if(endLat==0){
+    		  endLat=5333;
+    	  }
+    	  double lat=Math.random()*(endLat-beginLat)+beginLat;
+    	  System.out.println("lat="+lat/100);
     	  return lat/100;
       }
       
@@ -152,13 +162,20 @@ public class RandomUtil {
              //System. out.println(sb.toString());
              return sb.toString();
             }
+      public static double getLongitude1(){
+    	  Random rand = new Random();
+    	  int x = (int)(Math.random()*9000+1000);
+    	  System.out.println("lon1==="+x);
+    	 return x;
+      }
       
       public static void main(String[] args){
-    	  getTalk();
+    	  //getTalk();
     	  //getName();
-    	  //getLongitude();
-    	  //getLatitude();
-    	  //getLonLat();
+    	 
+    	getLatitude(3926,4103);  
+    	getLongitude(11525,11730);
+		
       }
 
 }

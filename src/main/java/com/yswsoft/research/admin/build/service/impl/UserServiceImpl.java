@@ -54,8 +54,8 @@ public class UserServiceImpl extends BaseDaoImpl<User> implements UserService{
 			t.setUid(Long.parseLong(uid.toString()));
 			t.setCreateTime(new Date());
 			t.setTalk(RandomUtil.getTalk());
-			t.setLon(RandomUtil.getString(RandomUtil.getLongitude()));
-			t.setLat(RandomUtil.getString(RandomUtil.getLatitude()));
+			t.setLon(RandomUtil.getString(RandomUtil.getLongitude(11525,11730)));
+			t.setLat(RandomUtil.getString(RandomUtil.getLatitude(3926,4103)));
 			t.setSign(1);
 			Serializable tid = talkDao.save(t);
 			long e=System.currentTimeMillis();
